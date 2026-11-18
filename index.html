@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiago Xavier — QA Engineer</title>
+<meta name="description" content="Tiago Xavier — QA Engineer specialized in test automation (Playwright, Maestro, Kafka/MQTT) and AI-augmented QA workflows.">
+<meta property="og:title" content="Tiago Xavier — QA Engineer">
+<meta property="og:description" content="Test automation, AI-augmented QA, Playwright, Maestro, Kafka/MQTT. Campinas, Brazil — open to remote and relocation to Europe.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07090d;
+  --bg2:#0c1017;
+  --panel:#0f141c;
+  --line:#1c2430;
+  --text:#d7dee8;
+  --muted:#7d8a9c;
+  --green:#3ef08a;
+  --cyan:#4cc9f0;
+  --violet:#a78bfa;
+  --amber:#fbbf24;
+  --red:#f87171;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --sans:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--green);color:#000}
+
+/* background grid + glow */
+.bg-grid{position:fixed;inset:0;z-index:-2;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:48px 48px;opacity:.35;
+  mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 75%)}
+.glow{position:fixed;width:520px;height:520px;border-radius:50%;z-index:-1;pointer-events:none;
+  background:radial-gradient(circle,rgba(62,240,138,.10),transparent 65%);transform:translate(-50%,-50%);left:50%;top:20%;transition:left .25s ease-out,top .25s ease-out}
+
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+  padding:14px clamp(20px,5vw,64px);background:rgba(7,9,13,.72);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
+nav.scrolled{border-color:var(--line)}
+.logo{font-family:var(--mono);font-weight:700;color:var(--green);font-size:15px}
+.logo span{color:var(--muted)}
+.nav-links{display:flex;gap:26px;align-items:center;font-family:var(--mono);font-size:13px}
+.nav-links a{color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--green)}
+.nav-links a b{color:var(--green);font-weight:400}
+.lang{display:flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.lang button{background:none;border:0;color:var(--muted);font-family:var(--mono);font-size:12px;padding:5px 10px;cursor:pointer}
+.lang button.on{background:var(--green);color:#000;font-weight:700}
+
+main{max-width:1120px;margin:0 auto;padding:0 clamp(20px,5vw,40px)}
+section{padding:110px 0 40px}
+
+/* hero */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:center;padding-top:110px}
+.status{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--green);
+  border:1px solid rgba(62,240,138,.3);background:rgba(62,240,138,.06);padding:6px 12px;border-radius:999px;margin-bottom:26px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(62,240,138,.7);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(62,240,138,0)}100%{box-shadow:0 0 0 0 rgba(62,240,138,0)}}
+h1{font-size:clamp(44px,6.4vw,78px);line-height:1.02;font-weight:800;letter-spacing:-.035em}
+h1 .grad{background:linear-gradient(90deg,var(--green),var(--cyan) 60%,var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.role{font-family:var(--mono);font-size:clamp(15px,1.6vw,18px);color:var(--muted);margin:20px 0 22px;min-height:1.6em}
+.role .typed{color:var(--cyan)}
+.caret{display:inline-block;width:9px;height:1.1em;background:var(--green);vertical-align:-3px;margin-left:3px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.lead{font-size:17px;color:#aeb8c6;max-width:520px}
+.cta{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+.btn{font-family:var(--mono);font-size:13px;padding:12px 20px;border-radius:8px;border:1px solid var(--line);transition:all .2s;display:inline-flex;gap:8px;align-items:center}
+.btn.primary{background:var(--green);color:#03140a;border-color:var(--green);font-weight:700}
+.btn.primary:hover{box-shadow:0 0 28px rgba(62,240,138,.45);transform:translateY(-2px)}
+.btn:not(.primary):hover{border-color:var(--green);color:var(--green);transform:translateY(-2px)}
+.btn svg{width:16px;height:16px}
+
+/* terminal */
+.term{background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 30px 80px -20px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.02) inset;overflow:hidden;font-family:var(--mono);font-size:12.5px}
+.term-bar{display:flex;align-items:center;gap:7px;padding:12px 14px;border-bottom:1px solid var(--line);background:#0b0f15}
+.term-bar i{width:11px;height:11px;border-radius:50%;display:block}
+.term-bar i:nth-child(1){background:#ff5f57}.term-bar i:nth-child(2){background:#febc2e}.term-bar i:nth-child(3){background:#28c840}
+.term-bar span{margin-left:10px;color:var(--muted);font-size:12px}
+.term-body{padding:18px 18px 22px;min-height:310px;white-space:pre-wrap;line-height:1.75}
+.t-prompt{color:var(--green)}.t-cmd{color:var(--text)}.t-dim{color:var(--muted)}
+.t-pass{color:var(--green)}.t-file{color:var(--cyan)}.t-num{color:var(--amber)}.t-sum{color:var(--text);font-weight:700}
+
+/* section heads */
+.sh{display:flex;align-items:baseline;gap:14px;margin-bottom:40px}
+.sh .idx{font-family:var(--mono);color:var(--green);font-size:14px}
+.sh h2{font-size:clamp(28px,3.4vw,38px);font-weight:800;letter-spacing:-.02em}
+.sh .rule{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent);align-self:center}
+
+/* about + metrics */
+.about{display:grid;grid-template-columns:1.2fr 1fr;gap:48px}
+.about p{color:#aeb8c6;margin-bottom:16px;font-size:16.5px}
+.about p strong{color:var(--text);font-weight:600}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-content:start}
+.metric{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px;position:relative;overflow:hidden}
+.metric::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:linear-gradient(90deg,var(--green),transparent)}
+.metric .n{font-family:var(--mono);font-size:34px;font-weight:700;color:var(--green);line-height:1.1}
+.metric .l{color:var(--muted);font-size:13px;margin-top:6px}
+.metric.wide{grid-column:span 2}
+.metric .flow{font-family:var(--mono);font-size:26px;font-weight:700}
+.metric .flow s{color:var(--muted);text-decoration-color:var(--red)}
+.metric .flow em{font-style:normal;color:var(--green)}
+
+/* timeline */
+.timeline{position:relative;padding-left:34px}
+.timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.timeline .progress{position:absolute;left:7px;top:6px;width:2px;height:0;background:linear-gradient(var(--green),var(--cyan));box-shadow:0 0 12px var(--green);transition:height .1s linear}
+.job{position:relative;margin-bottom:26px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:24px 26px;transition:border-color .3s,transform .3s}
+.job:hover{border-color:rgba(62,240,138,.45);transform:translateX(4px)}
+.job::before{content:"";position:absolute;left:-33px;top:28px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--green)}
+.job.current::before{background:var(--green);box-shadow:0 0 14px var(--green)}
+.job-head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:baseline}
+.job h3{font-size:19px;font-weight:700}
+.job h3 .at{color:var(--green)}
+.job .when{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.job .where{font-size:13px;color:var(--muted);margin:2px 0 12px}
+.job ul{list-style:none;color:#aeb8c6;font-size:15px}
+.job li{padding-left:20px;position:relative;margin:6px 0}
+.job li::before{content:"✓";position:absolute;left:0;color:var(--green);font-family:var(--mono);font-size:13px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tag{font-family:var(--mono);font-size:11.5px;padding:3px 9px;border-radius:5px;background:rgba(76,201,240,.08);color:var(--cyan);border:1px solid rgba(76,201,240,.2)}
+.badge-now{font-family:var(--mono);font-size:10.5px;color:#03140a;background:var(--green);padding:2px 7px;border-radius:4px;margin-left:8px;vertical-align:3px;font-weight:700}
+
+/* projects */
+.projects{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.proj{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:26px;position:relative;overflow:hidden;transition:transform .3s,border-color .3s}
+.proj::after{content:"";position:absolute;inset:0;background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%),rgba(62,240,138,.09),transparent 40%);opacity:0;transition:opacity .3s;pointer-events:none}
+.proj:hover{transform:translateY(-4px);border-color:rgba(62,240,138,.35)}
+.proj:hover::after{opacity:1}
+.proj .ico{font-family:var(--mono);font-size:12px;color:var(--violet);margin-bottom:14px;display:flex;justify-content:space-between}
+.proj h3{font-size:19px;margin-bottom:10px}
+.proj p{color:#aeb8c6;font-size:15px}
+.pipeline{display:flex;align-items:center;gap:6px;margin:16px 0 4px;font-family:var(--mono);font-size:11px;flex-wrap:wrap}
+.pipeline span{padding:4px 8px;border:1px solid var(--line);border-radius:5px;color:var(--muted)}
+.pipeline b{color:var(--green);font-weight:400}
+
+/* stack */
+.stack{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.stack-col{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px}
+.stack-col h4{font-family:var(--mono);font-size:13px;color:var(--green);margin-bottom:14px;font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{font-size:13px;padding:5px 11px;border-radius:6px;background:#141b25;border:1px solid var(--line);transition:all .2s;cursor:default}
+.chip:hover{border-color:var(--green);color:var(--green);transform:translateY(-2px)}
+
+/* edu */
+.edu{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.edu-card{border-left:2px solid var(--violet);padding:4px 0 4px 18px}
+.edu-card .y{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.edu-card h4{font-size:16px;margin:4px 0}
+.edu-card p{font-size:14px;color:var(--muted)}
+.langs{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap}
+.lang-pill{font-family:var(--mono);font-size:13px;border:1px solid var(--line);border-radius:8px;padding:10px 16px}
+.lang-pill b{color:var(--green);font-weight:500}
+
+/* contact */
+.contact{text-align:center;padding:120px 0 80px}
+.contact h2{font-size:clamp(34px,5vw,56px);font-weight:800;letter-spacing:-.03em;margin-bottom:14px}
+.contact p{color:var(--muted);max-width:520px;margin:0 auto 32px}
+.contact .cta{justify-content:center}
+footer{border-top:1px solid var(--line);text-align:center;padding:26px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+footer b{color:var(--green);font-weight:400}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;gap:40px;min-height:auto;padding-top:120px}
+  .about,.projects,.stack,.edu{grid-template-columns:1fr}
+  .nav-links a{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="glow" id="glow"></div>
+
+<nav id="nav">
+  <a href="#top" class="logo">~/tiago<span>.xavier</span></a>
+  <div class="nav-links">
+    <a href="#about"><b>01.</b> <span data-pt="sobre">about</span></a>
+    <a href="#experience"><b>02.</b> <span data-pt="experiência">experience</span></a>
+    <a href="#work"><b>03.</b> <span data-pt="projetos">work</span></a>
+    <a href="#stack"><b>04.</b> stack</a>
+    <a href="#contact"><b>05.</b> <span data-pt="contato">contact</span></a>
+    <div class="lang"><button id="btn-en" class="on">EN</button><button id="btn-pt">PT</button></div>
+  </div>
+</nav>
+
+<main id="top">
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="status reveal"><span class="dot"></span><span data-pt="Aberto a vagas · remoto ou realocação para a Europa">Open to opportunities · remote or relocation to Europe</span></div>
+    <h1 class="reveal d1">Tiago<br><span class="grad">Xavier</span></h1>
+    <div class="role reveal d2"><span class="t-dim">&gt;</span> <span class="typed" id="typed"></span><span class="caret"></span></div>
+    <p class="lead reveal d2" data-pt="QA Engineer que une testes manuais estratégicos e automação avançada com IA. Construo processos de qualidade do zero, automatizo web, mobile e mensageria, e uso Claude Code e MCPs customizados para tirar o trabalho repetitivo do caminho do time.">QA Engineer combining strategic manual testing with advanced, AI-powered automation. I build quality processes from scratch, automate web, mobile and messaging systems, and use Claude Code and custom MCPs to take repetitive work off the team's plate.</p>
+    <div class="cta reveal d3">
+      <a class="btn primary" href="#contact"><span data-pt="Vamos conversar">Get in touch</span> →</a>
+      <a class="btn" href="https://github.com/TiagosXavier" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.6 18 4.9 18 4.9c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
+        GitHub</a>
+    </div>
+  </div>
+
+  <div class="term reveal d2">
+    <div class="term-bar"><i></i><i></i><i></i><span>tiago@portfolio: ~/qa</span></div>
+    <div class="term-body" id="term"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sh reveal"><span class="idx">01.</span><h2 data-pt="Sobre mim">About me</h2><span class="rule"></span></div>
+  <div class="about">
+    <div class="reveal">
+      <p data-pt="Comecei no software em 2022 como <strong>desenvolvedor frontend</strong> (.NET, Angular, React) e migrei para qualidade. Essa base em desenvolvimento faz diferença: leio o diff, entendo a arquitetura e escrevo automação que o time de engenharia consegue manter.">I started in software in 2022 as a <strong>frontend developer</strong> (.NET, Angular, React) and moved into quality. That dev background matters: I read the diff, understand the architecture, and write automation the engineering team can actually maintain.</p>
+      <p data-pt="Hoje sou <strong>Founding QA Engineer</strong> em uma empresa americana de proptech e CRM com IA, e Quality Engineer para a Elsevier via Insight Global. Nos dois lugares cheguei sem processo de QA e saí com pipeline, automação e documentação.">Today I'm a <strong>Founding QA Engineer</strong> at a US proptech &amp; AI-CRM company and a Quality Engineer for Elsevier through Insight Global. In both places I arrived with no QA process in place and built the pipeline, automation and documentation.</p>
+      <p data-pt="Meu diferencial é <strong>QA aumentado por IA</strong>: orquestradores que transformam tickets em testes, skills compartilhadas para o time e fluxos multi-agente para revisão — sempre com humano no controle das decisões de qualidade.">My edge is <strong>AI-augmented QA</strong>: orchestrators that turn tickets into tests, shared skills for the team, and multi-agent review workflows — with a human always owning the quality call.</p>
+    </div>
+    <div class="metrics reveal d1">
+      <div class="metric"><div class="n"><span class="count" data-to="75">0</span>%</div><div class="l" data-pt="cobertura de testes em 3 meses (partindo de 0%)">test coverage in 3 months (from 0%)</div></div>
+      <div class="metric"><div class="n">~<span class="count" data-to="70">0</span>%</div><div class="l" data-pt="menos esforço manual de QA">less manual QA effort</div></div>
+      <div class="metric wide"><div class="flow"><s>45 min</s> → <em>12 min</em></div><div class="l" data-pt="lead time do ciclo de testes">test cycle lead time</div></div>
+      <div class="metric wide"><div class="n"><span class="count" data-to="3">0</span> <span style="font-size:16px;color:var(--muted)" data-pt="plataformas: web · mobile · mensageria">platforms: web · mobile · messaging</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="sh reveal"><span class="idx">02.</span><h2 data-pt="Experiência">Experience</h2><span class="rule"></span></div>
+  <div class="timeline" id="timeline">
+    <div class="progress" id="tl-progress"></div>
+
+    <div class="job current reveal">
+      <div class="job-head"><h3>Quality Engineer <span class="at">@ Insight Global</span><span class="badge-now" data-pt="ATUAL">NOW</span></h3><span class="when">SEP 2026 — <span data-pt="ATUAL">PRESENT</span></span></div>
+      <div class="where" data-pt="Cliente: Elsevier · Filadélfia, EUA (remoto)">Client: Elsevier · Philadelphia, US (remote)</div>
+      <ul>
+        <li data-pt="Migrei a suíte de automação web de Cypress para Playwright.">Migrated the web automation suite from Cypress to Playwright.</li>
+        <li data-pt="Construí do zero a automação de testes de Kafka (Postman, Newman, Jest), validada com Confluent CLI.">Built Kafka test automation from scratch (Postman, Newman, Jest), validated with Confluent CLI.</li>
+        <li data-pt="Criei processos de QA e skills de IA reutilizáveis para o time.">Created QA processes and reusable AI skills for the team.</li>
+      </ul>
+      <div class="tags"><span class="tag">Playwright</span><span class="tag">Kafka</span><span class="tag">Newman</span><span class="tag">Jest</span><span class="tag">Confluent CLI</span></div>
+    </div>
+
+    <div class="job current reveal">
+      <div class="job-head"><h3>Founding QA Engineer <span class="at">@ EZ Home Search · Suresend</span><span class="badge-now" data-pt="ATUAL">NOW</span></h3><span class="when">AUG 2025 — <span data-pt="ATUAL">PRESENT</span></span></div>
+      <div class="where" data-pt="Myrtle Beach, EUA (remoto) · Portal imobiliário + CRM com IA">Myrtle Beach, US (remote) · Real-estate platform + AI-driven CRM</div>
+      <ul>
+        <li data-pt="Primeiro QA da empresa: implantei a cultura de qualidade, processos e automação Playwright integrada ao CI/CD.">First QA hire: introduced quality culture, processes and Playwright automation wired into CI/CD.</li>
+        <li data-pt="Cobertura de 0% para 75% em 3 meses; lead time de ~45 para ~12 min; ~70% menos esforço manual.">Coverage from 0% to 75% in 3 months; lead time from ~45 to ~12 min; ~70% less manual effort.</li>
+        <li data-pt="No Suresend (desde mar/2026): testes web, backend e principalmente mobile com Maestro; RCAs.">On Suresend (since Mar 2026): web, backend and mainly mobile testing with Maestro; root-cause analyses.</li>
+        <li data-pt="Criei um orquestrador de IA que transforma tickets (critérios de aceite + diff) em testes e relatórios de pass/fail.">Built an AI orchestrator that turns tickets (acceptance criteria + diff) into tests and pass/fail reports.</li>
+      </ul>
+      <div class="tags"><span class="tag">Playwright</span><span class="tag">Maestro</span><span class="tag">Claude Code</span><span class="tag">MCP</span><span class="tag">React</span><span class="tag">Rails</span></div>
+    </div>
+
+    <div class="job reveal">
+      <div class="job-head"><h3>QA Engineer <span class="at">@ CI&amp;T</span></h3><span class="when">NOV 2025 — AUG 2026</span></div>
+      <div class="where" data-pt="Cliente: Johnson Controls (Sensormatic) · Sistema de tráfego/sinal IoT">Client: Johnson Controls (Sensormatic) · IoT traffic/signal system</div>
+      <ul>
+        <li data-pt="Testes de carga e performance com JMeter em produto de mensageria MQTT e Kafka.">Load and performance testing with JMeter on an MQTT and Kafka messaging product.</li>
+        <li data-pt="POC de automação de mensageria com Jest, mqtt.js e Supertest, validando logs via ArgoCD.">Messaging automation POC with Jest, mqtt.js and Supertest, validating logs through ArgoCD.</li>
+        <li data-pt="Introduzi o AI-SDD (AI Spec-Driven Development) e migrei uma suíte legada de Selenium para Playwright.">Introduced AI-SDD (AI Spec-Driven Development) and migrated a legacy Selenium suite to Playwright.</li>
+      </ul>
+      <div class="tags"><span class="tag">JMeter</span><span class="tag">MQTT</span><span class="tag">Kafka</span><span class="tag">Supertest</span><span class="tag">ArgoCD</span><span class="tag">Xray</span></div>
+    </div>
+
+    <div class="job reveal">
+      <div class="job-head"><h3>Quality Assurance Analyst <span class="at">@ AB InBev</span></h3><span class="when">AUG 2024 — AUG 2025</span></div>
+      <ul>
+        <li data-pt="Desenhei e executei planos de teste com times multidisciplinares e defini processos de QA ao longo do SDLC.">Designed and executed test plans with cross-functional teams and defined QA processes across the SDLC.</li>
+        <li data-pt="Gestão de defeitos, documentação de testes e reporte de riscos e métricas de qualidade para stakeholders.">Defect tracking, test documentation, and reporting quality risks and metrics to stakeholders.</li>
+      </ul>
+          </div>
+
+    <div class="job reveal">
+      <div class="job-head"><h3>Frontend Developer <span class="at">@ AB InBev</span></h3><span class="when">JAN 2023 — JUL 2024</span></div>
+      <ul>
+        <li data-pt="Componentes de UI responsivos para ferramentas data-driven e integração de APIs com o backend.">Responsive UI components for data-driven tools and API integration with backend teams.</li>
+        <li data-pt="Testes unitários com Jest garantindo qualidade ao longo do ciclo de desenvolvimento.">Unit tests with Jest to keep quality high throughout the development cycle.</li>
+      </ul>
+      <div class="tags"><span class="tag">React</span><span class="tag">Jest</span></div>
+    </div>
+
+    <div class="job reveal">
+      <div class="job-head"><h3>Web Developer <span class="at">@ Blueintra</span></h3><span class="when">SEP 2022 — JAN 2023</span></div>
+      <div class="where">Vinhedo, Brazil</div>
+      <ul><li data-pt="Desenvolvimento web com .NET, Angular e React.">Web development with .NET, Angular and React.</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="sh reveal"><span class="idx">03.</span><h2 data-pt="Destaques">Featured work</h2><span class="rule"></span></div>
+  <div class="projects">
+    <div class="proj reveal">
+      <div class="ico"><span>// ai-orchestrator</span><span>Suresend</span></div>
+      <h3 data-pt="Orquestrador de QA com IA">AI QA Orchestrator</h3>
+      <p data-pt="Lê o ticket e o diff do PR, gera os cenários de teste, executa e devolve um relatório de pass/fail pronto para revisão.">Reads the ticket and the PR diff, generates test scenarios, runs them, and returns a pass/fail report ready for review.</p>
+      <div class="pipeline"><span>ticket + AC</span><b>→</b><span>diff</span><b>→</b><span>tests</span><b>→</b><span style="color:var(--green);border-color:rgba(62,240,138,.4)">report ✓</span></div>
+    </div>
+    <div class="proj reveal d1">
+      <div class="ico"><span>// kafka-suite</span><span>Elsevier</span></div>
+      <h3 data-pt="Automação de Kafka do zero">Kafka automation from scratch</h3>
+      <p data-pt="Suíte de testes de eventos com Postman/Newman e Jest, com validação das mensagens publicadas via Confluent CLI.">Event test suite with Postman/Newman and Jest, verifying published messages through Confluent CLI.</p>
+      <div class="pipeline"><span>produce</span><b>→</b><span>consume</span><b>→</b><span>assert</span><b>→</b><span style="color:var(--green);border-color:rgba(62,240,138,.4)">CI ✓</span></div>
+    </div>
+    <div class="proj reveal">
+      <div class="ico"><span>// iot-messaging</span><span>Johnson Controls</span></div>
+      <h3 data-pt="Performance e E2E de MQTT">MQTT performance &amp; E2E</h3>
+      <p data-pt="Refatoração de planos JMeter (SSL, variáveis centralizadas) e arquitetura E2E com Jest + mqtt.js para dispositivos IoT de contagem de tráfego.">Refactored JMeter plans (SSL, centralized variables) and an E2E architecture with Jest + mqtt.js for IoT traffic-counting devices.</p>
+      <div class="pipeline"><span>device</span><b>→</b><span>MQTT</span><b>→</b><span>bridge</span><b>→</b><span style="color:var(--green);border-color:rgba(62,240,138,.4)">ArgoCD logs ✓</span></div>
+    </div>
+    <div class="proj reveal d1">
+      <div class="ico"><span>// migrations</span><span>Elsevier · CI&amp;T</span></div>
+      <h3 data-pt="Migrações para Playwright">Playwright migrations</h3>
+      <p data-pt="Duas suítes legadas (Cypress e Selenium) migradas para Playwright: execução mais rápida, menos flakiness e integração direta ao pipeline.">Two legacy suites (Cypress and Selenium) moved to Playwright: faster runs, less flakiness, and direct pipeline integration.</p>
+      <div class="pipeline"><span>Cypress</span><span>Selenium</span><b>→</b><span style="color:var(--green);border-color:rgba(62,240,138,.4)">Playwright ✓</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- STACK -->
+<section id="stack">
+  <div class="sh reveal"><span class="idx">04.</span><h2>Stack</h2><span class="rule"></span></div>
+  <div class="stack">
+    <div class="stack-col reveal"><h4>$ automation</h4><div class="chips"><span class="chip">Playwright</span><span class="chip">Cypress</span><span class="chip">Selenium</span><span class="chip">Maestro</span><span class="chip">Jest</span><span class="chip">Supertest</span><span class="chip">JMeter</span><span class="chip">Postman / Newman</span></div></div>
+    <div class="stack-col reveal d1"><h4>$ ai-for-qa</h4><div class="chips"><span class="chip">Claude Code</span><span class="chip">Custom MCPs</span><span class="chip">Claude Skills</span><span class="chip">Multi-agent workflows</span><span class="chip">AI-SDD</span></div></div>
+    <div class="stack-col reveal d2"><h4>$ messaging</h4><div class="chips"><span class="chip">Kafka</span><span class="chip">MQTT</span><span class="chip">Confluent CLI</span><span class="chip">mqtt.js</span></div></div>
+    <div class="stack-col reveal"><h4>$ languages</h4><div class="chips"><span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">Python</span><span class="chip">Java</span><span class="chip">C#</span><span class="chip">Ruby</span><span class="chip">SQL</span></div></div>
+    <div class="stack-col reveal d1"><h4>$ ci-cd &amp; infra</h4><div class="chips"><span class="chip">Azure DevOps</span><span class="chip">GitHub Actions</span><span class="chip">ArgoCD</span><span class="chip">BrowserStack</span><span class="chip">AppCenter</span><span class="chip">Git</span></div></div>
+    <div class="stack-col reveal d2"><h4>$ management</h4><div class="chips"><span class="chip">Jira</span><span class="chip">Xray</span><span class="chip">Zephyr</span><span class="chip">Scrum</span><span class="chip">RCA</span><span class="chip">MongoDB</span></div></div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="sh reveal"><span class="idx">05.</span><h2 data-pt="Formação">Education</h2><span class="rule"></span></div>
+  <div class="edu">
+    <div class="edu-card reveal"><div class="y">2022 — 2024</div><h4 data-pt="Análise e Desenvolvimento de Sistemas">Software Analysis &amp; Development</h4><p data-pt="Tecnólogo · UniCesumar">Technology degree · UniCesumar</p></div>
+    <div class="edu-card reveal d1"><div class="y">2020 — 2021</div><h4 data-pt="MBA em Inteligência de Mercado">MBA, Market Intelligence</h4><p>Descomplica</p></div>
+    <div class="edu-card reveal d2"><div class="y">2014 — 2016</div><h4 data-pt="Gestão da Cadeia de Suprimentos e Logística">Supply Chain &amp; Logistics Management</h4><p data-pt="Tecnólogo · ESAMC">Technology degree · ESAMC</p></div>
+  </div>
+  <div class="langs reveal">
+    <div class="lang-pill"><b>PT</b> · <span data-pt="Nativo">Native</span></div>
+    <div class="lang-pill"><b>EN</b> · <span data-pt="Profissional completo">Full professional</span></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="sh reveal" style="justify-content:center"><span class="idx">06.</span><span data-pt="o que vem a seguir?" style="font-family:var(--mono);color:var(--green);font-size:14px">what's next?</span></div>
+  <h2 class="reveal" data-pt="Vamos construir algo<br>confiável juntos.">Let's ship something<br>reliable together.</h2>
+  <p class="reveal" data-pt="Estou aberto a vagas de QA / Quality Engineering — remoto a partir do Brasil ou com realocação para a Europa. Baseado em Campinas, SP (UTC−3).">I'm open to QA / Quality Engineering roles — remote from Brazil or with relocation to Europe. Based in Campinas, Brazil (UTC−3).</p>
+  <div class="cta reveal">
+    <a class="btn primary" href="mailto:tiagossxavier@gmail.com">tiagossxavier@gmail.com</a>
+    <a class="btn" href="https://github.com/TiagosXavier" target="_blank" rel="noopener">github.com/TiagosXavier</a>
+  </div>
+</section>
+</main>
+
+<footer><b>✓</b> <span data-pt="todos os testes passaram">all tests passed</span> · © <span id="yr"></span> Tiago Xavier</footer>
+
+<script>
+(function(){
+  var lang='en';
+
+  /* ---------- i18n ---------- */
+  var nodes=[].slice.call(document.querySelectorAll('[data-pt]'));
+  nodes.forEach(function(n){n.setAttribute('data-en',n.innerHTML)});
+  function setLang(l){
+    lang=l;
+    nodes.forEach(function(n){n.innerHTML=n.getAttribute('data-'+l)});
+    document.documentElement.lang=l==='pt'?'pt-BR':'en';
+    document.getElementById('btn-en').classList.toggle('on',l==='en');
+    document.getElementById('btn-pt').classList.toggle('on',l==='pt');
+    restartTyping();
+    runTerminal();
+    try{localStorage.setItem('tx-lang',l)}catch(e){}
+  }
+  document.getElementById('btn-en').onclick=function(){setLang('en')};
+  document.getElementById('btn-pt').onclick=function(){setLang('pt')};
+
+  /* ---------- typed role ---------- */
+  var roles={
+    en:['QA Engineer','Test Automation · Playwright · Maestro','AI-augmented QA','Kafka & MQTT testing','Founding QA Engineer'],
+    pt:['QA Engineer','Automação de testes · Playwright · Maestro','QA aumentado por IA','Testes de Kafka & MQTT','Founding QA Engineer']
+  };
+  var typedEl=document.getElementById('typed'),tTimer,ri=0,ci=0,del=false;
+  function tick(){
+    var list=roles[lang],w=list[ri%list.length];
+    if(!del){ci++;typedEl.textContent=w.slice(0,ci);if(ci===w.length){del=true;tTimer=setTimeout(tick,1700);return}}
+    else{ci--;typedEl.textContent=w.slice(0,ci);if(ci===0){del=false;ri++}}
+    tTimer=setTimeout(tick,del?35:70);
+  }
+  function restartTyping(){clearTimeout(tTimer);ri=0;ci=0;del=false;tick()}
+
+  /* ---------- terminal "test run" ---------- */
+  var term=document.getElementById('term'),runId=0;
+  var specs={
+    en:[
+      ['has solid automation skills','312ms'],
+      ['tests web, mobile & messaging','287ms'],
+      ['builds QA process from zero','198ms'],
+      ['uses AI to multiply the team','154ms'],
+      ['ships tests to CI/CD','221ms'],
+      ['communicates in EN & PT','96ms']
+    ],
+    pt:[
+      ['tem base sólida em automação','312ms'],
+      ['testa web, mobile e mensageria','287ms'],
+      ['constrói processo de QA do zero','198ms'],
+      ['usa IA para multiplicar o time','154ms'],
+      ['entrega no CI/CD, não só local','221ms'],
+      ['comunica em EN e PT','96ms']
+    ]
+  };
+  function sleep(ms){return new Promise(function(r){setTimeout(r,ms)})}
+  async function runTerminal(){
+    var id=++runId;term.innerHTML='';
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var cmd='npx playwright test candidate.spec.ts';
+    var line=document.createElement('div');
+    line.innerHTML='<span class="t-prompt">❯</span> <span class="t-cmd"></span>';
+    term.appendChild(line);
+    var c=line.querySelector('.t-cmd');
+    for(var i=0;i<=cmd.length;i++){if(id!==runId)return;c.textContent=cmd.slice(0,i);if(!reduce)await sleep(38)}
+    await sleep(reduce?0:400);
+    add('<span class="t-dim">'+(lang==='pt'?'Executando 6 testes com 1 worker':'Running 6 tests using 1 worker')+'</span>\n');
+    var s=specs[lang];
+    for(var j=0;j<s.length;j++){
+      if(id!==runId)return;
+      await sleep(reduce?0:420);
+      add('  <span class="t-pass">✓</span> <span class="t-file">tiago-xavier</span> › '+s[j][0]+' <span class="t-dim">('+s[j][1]+')</span>');
+    }
+    await sleep(reduce?0:500);if(id!==runId)return;
+    add('\n  <span class="t-pass t-sum">6 passed</span> <span class="t-dim">(1.3s)</span>');
+    add('\n<span class="t-prompt">❯</span> <span class="t-dim">'+(lang==='pt'?'status: pronto para contratar':'status: ready to hire')+'</span> <span class="caret"></span>');
+    function add(h){if(id!==runId)return;var d=document.createElement('div');d.innerHTML=h;term.appendChild(d)}
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+
+  /* ---------- counters ---------- */
+  var co=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(!e.isIntersecting)return;co.unobserve(e.target);
+    var el=e.target,to=+el.dataset.to,t0=null;
+    function step(t){if(!t0)t0=t;var p=Math.min((t-t0)/1400,1);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)}
+    requestAnimationFrame(step);
+  })},{threshold:.6});
+  document.querySelectorAll('.count').forEach(function(el){co.observe(el)});
+
+  /* ---------- timeline progress, nav, glow ---------- */
+  var tl=document.getElementById('timeline'),prog=document.getElementById('tl-progress'),nav=document.getElementById('nav');
+  function onScroll(){
+    nav.classList.toggle('scrolled',scrollY>10);
+    var r=tl.getBoundingClientRect(),vh=innerHeight;
+    var p=Math.min(Math.max((vh*0.6-r.top)/r.height,0),1);
+    prog.style.height=(p*(r.height-12))+'px';
+  }
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+  var glow=document.getElementById('glow');
+  addEventListener('pointermove',function(e){glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'});
+  document.querySelectorAll('.proj').forEach(function(p){
+    p.addEventListener('pointermove',function(e){var r=p.getBoundingClientRect();p.style.setProperty('--mx',(e.clientX-r.left)+'px');p.style.setProperty('--my',(e.clientY-r.top)+'px')});
+  });
+
+  document.getElementById('yr').textContent=new Date().getFullYear();
+
+  var saved='en';try{saved=localStorage.getItem('tx-lang')||'en'}catch(e){}
+  setLang(saved==='pt'?'pt':'en');
+})();
+</script>
+</body>
+</html>
